@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Todo</title>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+
+    <form action="/add" method="POST">
+      <input name="title" placeholder="New todo..." />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul>
+      <% (todos || []).forEach(t => { %>
+        <li><%= t.title %> <%= t.is_completed ? "✅" : "⬜" %></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
