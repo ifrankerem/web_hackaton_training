@@ -2,10 +2,19 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+# Install pnpm
+RUN npm install -g pnpm
+
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install --frozen-lockfile || pnpm install
 
 COPY . .
 
+# Set environment variables
+ENV NODE_ENV=development
+ENV PORT=3000
+
 EXPOSE 3000
-CMD ["npm", "start"]
+
+# Use dev server for local development
+CMD ["pnpm", "dev"]
